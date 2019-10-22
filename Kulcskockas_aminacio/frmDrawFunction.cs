@@ -15,18 +15,14 @@ namespace Kulcskockas_aminacio
     {
         PointPairList points;
         LineItem myCurve;
+        GraphPane graphPane;
 
-      /*  public frmDrawFunction(PointPairList _pointPairList)
+      public frmDrawFunction(PointPairList _pointPairList)
         {
             InitializeComponent();
-            graphPane = zedGraphControl1;
-            DateTime start = DateTime.Now;
-            double time = Math.Round(((double)(DateTime.Now - start).TotalMilliseconds / 1000.0), 2);
-            //  while (time < 100)
-            {
-                CreateGraphics(graphPane);
-                time = Math.Round(((double)(DateTime.Now - start).TotalMilliseconds / 1000.0), 2);
-            }
+            graphPane = zedGraphControl1.GraphPane;
+            LineItem lineItem = graphPane.AddCurve("Curve", _pointPairList, Color.Red, SymbolType.Circle);
+            zedGraphControl1.AxisChange();
         }
         private void CreateGraphics(ZedGraphControl zgc)
         { }

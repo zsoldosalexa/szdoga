@@ -28,19 +28,16 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.textXCor = new System.Windows.Forms.TextBox();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmProba));
             this.textYCord = new System.Windows.Forms.MaskedTextBox();
             this.button1 = new System.Windows.Forms.Button();
-            this.pictureBox = new System.Windows.Forms.PictureBox();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox)).BeginInit();
+            this.trackBar1 = new System.Windows.Forms.TrackBar();
+            this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
+            this.txtAngle = new System.Windows.Forms.TextBox();
+            this.txtScal = new System.Windows.Forms.TextBox();
+            this.txtXCord = new System.Windows.Forms.TextBox();
+            ((System.ComponentModel.ISupportInitialize)(this.trackBar1)).BeginInit();
             this.SuspendLayout();
-            // 
-            // textXCor
-            // 
-            this.textXCor.Location = new System.Drawing.Point(0, 12);
-            this.textXCor.Name = "textXCor";
-            this.textXCor.Size = new System.Drawing.Size(100, 20);
-            this.textXCor.TabIndex = 0;
             // 
             // textYCord
             // 
@@ -51,46 +48,82 @@
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(120, 26);
+            this.button1.BackColor = System.Drawing.Color.Transparent;
+            this.button1.DialogResult = System.Windows.Forms.DialogResult.Cancel;
+            this.button1.Image = ((System.Drawing.Image)(resources.GetObject("button1.Image")));
+            this.button1.Location = new System.Drawing.Point(115, 15);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(75, 23);
+            this.button1.Size = new System.Drawing.Size(84, 98);
             this.button1.TabIndex = 2;
-            this.button1.Text = "button1";
-            this.button1.UseVisualStyleBackColor = true;
+            this.button1.UseVisualStyleBackColor = false;
             this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
-            // pictureBox
+            // trackBar1
             // 
-            this.pictureBox.Location = new System.Drawing.Point(735, 400);
-            this.pictureBox.Name = "pictureBox";
-            this.pictureBox.Size = new System.Drawing.Size(53, 38);
-            this.pictureBox.TabIndex = 3;
-            this.pictureBox.TabStop = false;
+            this.trackBar1.Location = new System.Drawing.Point(12, 393);
+            this.trackBar1.Name = "trackBar1";
+            this.trackBar1.Size = new System.Drawing.Size(206, 45);
+            this.trackBar1.TabIndex = 4;
+            this.trackBar1.Scroll += new System.EventHandler(this.trackBar1_Scroll);
+            // 
+            // txtAngle
+            // 
+            this.txtAngle.Location = new System.Drawing.Point(0, 66);
+            this.txtAngle.Name = "txtAngle";
+            this.txtAngle.Size = new System.Drawing.Size(100, 20);
+            this.txtAngle.TabIndex = 5;
+            // 
+            // txtScal
+            // 
+            this.txtScal.AccessibleDescription = "jhg";
+            this.txtScal.AccessibleName = "jngh";
+            this.txtScal.AccessibleRole = System.Windows.Forms.AccessibleRole.TitleBar;
+            this.txtScal.Location = new System.Drawing.Point(0, 93);
+            this.txtScal.Name = "txtScal";
+            this.txtScal.Size = new System.Drawing.Size(100, 20);
+            this.txtScal.TabIndex = 6;
+            // 
+            // txtXCord
+            // 
+            this.txtXCord.Location = new System.Drawing.Point(0, 13);
+            this.txtXCord.Name = "txtXCord";
+            this.txtXCord.Size = new System.Drawing.Size(100, 20);
+            this.txtXCord.TabIndex = 7;
             // 
             // frmProba
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackgroundImage = global::Kulcskockas_aminacio.Properties.Resources.optimised_image_5;
+            this.CancelButton = this.button1;
             this.ClientSize = new System.Drawing.Size(800, 450);
-            this.Controls.Add(this.pictureBox);
+            this.Controls.Add(this.txtXCord);
+            this.Controls.Add(this.txtScal);
+            this.Controls.Add(this.txtAngle);
+            this.Controls.Add(this.trackBar1);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.textYCord);
-            this.Controls.Add(this.textXCor);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "frmProba";
             this.Text = "frmProba";
             this.Load += new System.EventHandler(this.frmProba_Load);
-            this.Click += new System.EventHandler(this.frmProba_Click);
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox)).EndInit();
+            this.Paint += new System.Windows.Forms.PaintEventHandler(this.frmProba_Paint);
+            this.MouseDown += new System.Windows.Forms.MouseEventHandler(this.frmProba_MouseDown);
+            this.MouseMove += new System.Windows.Forms.MouseEventHandler(this.frmProba_MouseMove);
+            this.MouseUp += new System.Windows.Forms.MouseEventHandler(this.frmProba_MouseUp);
+            ((System.ComponentModel.ISupportInitialize)(this.trackBar1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
         }
 
         #endregion
-
-        private System.Windows.Forms.TextBox textXCor;
         private System.Windows.Forms.MaskedTextBox textYCord;
         private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.PictureBox pictureBox;
+        private System.Windows.Forms.TrackBar trackBar1;
+        private System.ComponentModel.BackgroundWorker backgroundWorker1;
+        private System.Windows.Forms.TextBox txtAngle;
+        private System.Windows.Forms.TextBox txtScal;
+        private System.Windows.Forms.TextBox txtXCord;
     }
 }

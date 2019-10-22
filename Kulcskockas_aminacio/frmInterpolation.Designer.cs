@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmInterpolation));
             this.txtCoord = new System.Windows.Forms.TextBox();
             this.lblPoints = new System.Windows.Forms.Label();
             this.btnAdd = new System.Windows.Forms.Button();
@@ -39,11 +40,15 @@
             // 
             // txtCoord
             // 
+            this.txtCoord.ForeColor = System.Drawing.SystemColors.ControlDark;
             this.txtCoord.Location = new System.Drawing.Point(22, 56);
             this.txtCoord.Margin = new System.Windows.Forms.Padding(2);
             this.txtCoord.Name = "txtCoord";
             this.txtCoord.Size = new System.Drawing.Size(98, 20);
             this.txtCoord.TabIndex = 0;
+            this.txtCoord.Text = "(X,Y)";
+            this.txtCoord.Click += new System.EventHandler(this.txtCoord_Click);
+            this.txtCoord.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtCoord_KeyDown);
             // 
             // lblPoints
             // 
@@ -64,6 +69,7 @@
             this.btnAdd.TabIndex = 2;
             this.btnAdd.Text = "button1";
             this.btnAdd.UseVisualStyleBackColor = true;
+            this.btnAdd.Click += new System.EventHandler(this.btnAdd_Click);
             // 
             // btnSave
             // 
@@ -74,9 +80,11 @@
             this.btnSave.TabIndex = 3;
             this.btnSave.Text = "Számolj!";
             this.btnSave.UseVisualStyleBackColor = true;
+            this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
             // 
             // zedGraphControl1
             // 
+            this.zedGraphControl1.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("zedGraphControl1.BackgroundImage")));
             this.zedGraphControl1.Location = new System.Drawing.Point(184, 11);
             this.zedGraphControl1.Name = "zedGraphControl1";
             this.zedGraphControl1.ScrollGrace = 0D;
@@ -101,6 +109,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackgroundImage = global::Kulcskockas_aminacio.Properties.Resources.optimised_image_5;
             this.ClientSize = new System.Drawing.Size(600, 366);
             this.Controls.Add(this.restxt);
             this.Controls.Add(this.zedGraphControl1);
@@ -108,6 +117,7 @@
             this.Controls.Add(this.btnAdd);
             this.Controls.Add(this.lblPoints);
             this.Controls.Add(this.txtCoord);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "frmInterpolation";
             this.Text = "frmInterpolation";

@@ -14,11 +14,18 @@ namespace Kulcskockas_aminacio
     {
         Timer timer;
         int angle;
+        int scar;
         Rectangle r = new Rectangle(0, 0, 50, 50);
-        static int w = 0;
+        Rectangle rect;
+
+        Point LocationXY;
+        Point LocationXY2;
+
+        bool IsMouseDown = false;
+     /*   static int w = 0;
         static int h = 0;
         static int x = 0;
-        static int y = 0;
+        static int y = 0;*/
         public frmProba()
         {
             InitializeComponent();
@@ -28,35 +35,37 @@ namespace Kulcskockas_aminacio
             this.Paint += new PaintEventHandler(Form1_Paint);
             angle = 0;
             timer = new Timer();
+           // if (r.X < 10 && r.Y < 10)
             timer.Tick += new EventHandler(timer_Tick);
-            timer.Interval = 10;
+            timer.Interval = 100;
             timer.Start();
         }
         void Form1_Paint(object sender, PaintEventArgs e)
         {
             Graphics g = this.CreateGraphics();
+            SolidBrush blueBrush = new SolidBrush(Color.Blue);
             //the central point of the rotation
             g.TranslateTransform(100, 100);
             //rotation procedure
             g.RotateTransform(angle);
           //  Rectangle r = new Rectangle(0, 0, 50, 50);
-            g.DrawRectangle(Pens.Red, r);
-      //      r.X = x - 250;
-        //    r.Y = y - 250;
+            g.DrawRectangle(Pens.White, r);
+            g.FillRectangle(blueBrush, r);
+            //      r.X = x - 250;
+            //    r.Y = y - 250;
         }
         void timer_Tick(object sender, EventArgs e)
         {
 
-            //angle++;
-            r.Width += 1;
-            r.Height += 1;
-       //     while (r.X < 1000 && r.Y < 1000)
+        //    angle++;
+        //    r.Width += 1;
+        //    r.Height += 1;
             {
-                r.X -= 1;
+         //       r.X -= 1;
 
-                r.Y += 10;
-                r.Y -= 10; 
+          //      r.Y += 1;
             }
+
            // r.X = x - 250;
         //    r.Y = y - 250;
             this.Invalidate();
@@ -64,15 +73,85 @@ namespace Kulcskockas_aminacio
 
         private void button1_Click(object sender, EventArgs e)
         {
-            w = Convert.ToInt32(textXCor.Text);
-            h = Convert.ToInt32(textYCord.Text);
+            try
+            {
+                r.X = Convert.ToInt32(txtXCord.Text);
+                r.Y = Convert.ToInt32(textYCord.Text);
+                angle = Convert.ToInt32(txtAngle.Text);
+                scar = Convert.ToInt32(txtScal.Text);
+                Graphics g = this.CreateGraphics();
+                g.TranslateTransform(100, 100);
+                //rotation procedure
+                g.RotateTransform(angle);
+            }
+            catch(Exception ex)
+            {
+                MessageBox.Show("Nem megfelelő bemenet!");
+            }
         }
 
-        private void frmProba_Click(object sender, EventArgs e)
+     /*   private void frmProba_Click(object sender, EventArgs e)
         {
             x = MousePosition.X;
             y = MousePosition.Y;
             MessageBox.Show(string.Format("X: {0} Y: {1}", MousePosition.X, MousePosition.Y));
+        }*/
+
+        private void trackBar1_Scroll(object sender, EventArgs e)
+        {
+            r.X++;
+            r.Y++;
+            r.Width++;
+            r.Height++;
+            angle++;
+        }
+
+        private void frmProba_MouseDown(object sender, MouseEventArgs e)
+        {
+            IsMouseDown = true;
+
+            LocationXY = e.Location;
+        }
+
+        private void frmProba_MouseMove(object sender, MouseEventArgs e)
+        {
+            if (IsMouseDown == true)
+            {
+                LocationXY2 = e.Location;
+
+                Refresh();
+            }
+        }
+
+        private void frmProba_MouseUp(object sender, MouseEventArgs e)
+        {
+            if (IsMouseDown == true)
+            {
+                LocationXY2 = e.Location;
+
+                IsMouseDown = false;
+            }
+        }
+
+        private void frmProba_Paint(object sender, PaintEventArgs e)
+        {
+            if (rect != null)
+            {
+                e.Graphics.DrawRectangle(Pens.Red, GetRect());
+            }
+        }
+
+        private Rectangle GetRect()
+        {
+            rect = new Rectangle();
+
+            rect.X = Math.Min(LocationXY.X, LocationXY2.X);
+            rect.Y = Math.Min(LocationXY.Y, LocationXY2.Y);
+            rect.Width = Math.Abs(LocationXY.X - LocationXY2.X);
+            rect.Height = Math.Abs(LocationXY.Y - LocationXY2.Y);
+
+            return rect;
+
         }
 
 
