@@ -53,6 +53,12 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="frmDescription.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmDescription.Designer.cs">
+      <DependentUpon>frmDescription.cs</DependentUpon>
+    </Compile>
     <Compile Include="frmDrawFunction.cs">
       <SubType>Form</SubType>
     </Compile>

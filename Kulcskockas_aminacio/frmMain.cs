@@ -28,5 +28,11 @@ namespace Kulcskockas_aminacio
             frmProba frm = new frmProba();
             frm.Show();
         }
+
+        private void leírásToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            frmDescription frm = new frmDescription();
+            frm.Show();
+        }
     }
 }

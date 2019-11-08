@@ -91,7 +91,7 @@ namespace Kulcskockas_aminacio
             double time = Math.Round(((double)(DateTime.Now - start).TotalMilliseconds / 1000.0), 2);
             //  while (time < 100)
             {
-                DrawCurve(time);
+               // DrawCurve(time);
                 time = Math.Round(((double)(DateTime.Now - start).TotalMilliseconds / 1000.0), 2);
             }
 
@@ -106,10 +106,13 @@ namespace Kulcskockas_aminacio
 
             newCalculation = false;
 
-            string[] points = txtCoord.Text.Split(',');
+            string[] points = txtCoord.Text.Split(' ');
             try
             {
-                PointPair _pointPair = new PointPair(Convert.ToInt32(points[0]), Convert.ToInt32(points[1]));
+            //    double ds = Convert.ToDouble("0,75");
+            //    ds *= 2;
+            //    txtCoord.Text = Convert.ToString(ds);
+               PointPair _pointPair = new PointPair(Convert.ToDouble(points[0]), Convert.ToDouble(points[1]));
                 yCords.Add(Convert.ToDouble(points[0]));
                 xCords.Add(Convert.ToDouble(points[1]));
             }
@@ -120,20 +123,20 @@ namespace Kulcskockas_aminacio
             txtCoord.Clear();
 
         }
-        private void DrawCurve(double time)
+       /* private void DrawCurve(double time)
         {
             string[] points = txtCoord.Text.Split(',');
             PointPair _pointPair = new PointPair(time, time);
             PointPairList _pointPairList = new PointPairList();
-          /*  for (int i = 0; i < 10; i++)
+            for (int i = 0; i < 10; i++)
             {
                 _pointPairList.Add(i, calc(i, res, numbers));
             }
-            LineItem lineItem = graphPane.AddCurve("SIne Curve", _pointPairList, Color.Red, SymbolType.None);*/
+            LineItem lineItem = graphPane.AddCurve("SIne Curve", _pointPairList, Color.Red, SymbolType.None);
             Console.WriteLine(time);
             zedGraphControl1.AxisChange();
         //    restxt.Text = (Convert.ToString(calc(0.75, res, numbers)));
-        }
+        }*/
         private void btnSave_Click(object sender, EventArgs e)
         {
             List<double> v1 = new List<double>();
@@ -202,10 +205,10 @@ namespace Kulcskockas_aminacio
 
                 newCalculation = false;
 
-                string[] points = txtCoord.Text.Split(',');
+                string[] points = txtCoord.Text.Split(' ');
                 try
                 {
-                    PointPair _pointPair = new PointPair(Convert.ToInt32(points[0]), Convert.ToInt32(points[1]));
+                    PointPair _pointPair = new PointPair(Convert.ToDouble(points[0]), Convert.ToDouble(points[1]));
                     yCords.Add(Convert.ToDouble(points[0]));
                     xCords.Add(Convert.ToDouble(points[1]));
                 }

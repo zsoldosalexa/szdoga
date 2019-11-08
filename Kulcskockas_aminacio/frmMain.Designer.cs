@@ -59,6 +59,7 @@
             this.leírásToolStripMenuItem.Name = "leírásToolStripMenuItem";
             this.leírásToolStripMenuItem.Size = new System.Drawing.Size(51, 20);
             this.leírásToolStripMenuItem.Text = "Leírás";
+            this.leírásToolStripMenuItem.Click += new System.EventHandler(this.leírásToolStripMenuItem_Click);
             // 
             // interpolációsFüggvénySzámításaToolStripMenuItem
             // 

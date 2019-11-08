@@ -14,96 +14,132 @@ namespace Kulcskockas_aminacio
     {
         Timer timer;
         int angle;
-        int scar;
-        Rectangle r = new Rectangle(0, 0, 50, 50);
-        Rectangle rect;
+        int transX, transY, transWidth, transHeight, transAngle;
+        static Rectangle r = new Rectangle(-100, -100, 50, 50);
+        static Rectangle rect;
+        static int kulonbsegx, kuly;
+        static List<double> xCords = new List<double>();
+        static List<double> yCords = new List<double>();
+        static List<double> v1 = new List<double>();
 
-        Point LocationXY;
-        Point LocationXY2;
+        static Point LocationXY;
+        static Point LocationXY2;
 
         bool IsMouseDown = false;
-     /*   static int w = 0;
-        static int h = 0;
-        static int x = 0;
-        static int y = 0;*/
+        bool rectangleDrawed = false;
+        /*   static int w = 0;
+           static int h = 0;
+           static int x = 0;
+           static int y = 0;*/
         public frmProba()
         {
             InitializeComponent();
         }
         private void frmProba_Load(object sender, EventArgs e)
-        { 
+        {
+            trackBar1.TickFrequency = 10;
             this.Paint += new PaintEventHandler(Form1_Paint);
             angle = 0;
             timer = new Timer();
-           // if (r.X < 10 && r.Y < 10)
             timer.Tick += new EventHandler(timer_Tick);
-            timer.Interval = 100;
-            timer.Start();
+            timer.Interval = 1;
         }
         void Form1_Paint(object sender, PaintEventArgs e)
         {
             Graphics g = this.CreateGraphics();
             SolidBrush blueBrush = new SolidBrush(Color.Blue);
-            //the central point of the rotation
             g.TranslateTransform(100, 100);
-            //rotation procedure
             g.RotateTransform(angle);
-          //  Rectangle r = new Rectangle(0, 0, 50, 50);
-            g.DrawRectangle(Pens.White, r);
             g.FillRectangle(blueBrush, r);
-            //      r.X = x - 250;
-            //    r.Y = y - 250;
         }
         void timer_Tick(object sender, EventArgs e)
         {
-
-        //    angle++;
-        //    r.Width += 1;
-        //    r.Height += 1;
+            if (!rectangleDrawed)
+                return;
+            if (angle < transAngle)
+                    angle++;
+            if (r.Width < transWidth || r.Width < GetRect().Width)
             {
-         //       r.X -= 1;
-
-          //      r.Y += 1;
+                r.Width += 1;
             }
-
-           // r.X = x - 250;
-        //    r.Y = y - 250;
+            if (r.Width > GetRect().Width)
+            {
+                r.Width--;
+            }
+            if (r.Height < transHeight || r.Height < GetRect().Height)
+            {
+                r.Height += 1;
+            }
+            if (r.Height > GetRect().Height)
+            {
+                r.Height -= 1;
+            }
+            if (r.Y < GetRect().Y-100 || r.Y < transY)
+            {
+                r.Y++;
+                r.X = (int)calc(r.Y, v1, yCords);
+            }  
             this.Invalidate();
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
-            try
+            if (rectangleDrawed)
             {
-                r.X = Convert.ToInt32(txtXCord.Text);
-                r.Y = Convert.ToInt32(textYCord.Text);
-                angle = Convert.ToInt32(txtAngle.Text);
-                scar = Convert.ToInt32(txtScal.Text);
-                Graphics g = this.CreateGraphics();
-                g.TranslateTransform(100, 100);
-                //rotation procedure
-                g.RotateTransform(angle);
+                timer.Start();
+                return;
             }
-            catch(Exception ex)
-            {
-                MessageBox.Show("Nem megfelelő bemenet!");
+               
+               try
+               {
+                   transX = Convert.ToInt32(txtXCord.Text);
+                   transY = Convert.ToInt32(textYCord.Text);
+                   transAngle = Convert.ToInt32(txtAngle.Text);
+                   transWidth = Convert.ToInt32(txtWidth.Text);
+                   transHeight = Convert.ToInt32(txtHeight.Text);
+                //  angle = Convert.ToInt32(txtAngle.Text);
+                //   scar = Convert.ToInt32(txtScal.Text);
+                /*                  Graphics g = this.CreateGraphics();
+                                  g.TranslateTransform(100, 100);
+                                  //rotation procedure
+                                  g.RotateTransform(angle);*/
+                rectangleDrawed = true;
+                xCords.Add(r.X);
+                xCords.Add(GetRect().X - 100);
+                yCords.Add(r.Y);
+                yCords.Add(GetRect().Y - 100);
+                v1 = Interpolation(xCords, yCords, 0);
             }
+               catch (Exception ex)
+               {
+                   MessageBox.Show("Nem megfelelő formátumú paraméterek!");
+               }
+            timer.Start();
+
         }
 
-     /*   private void frmProba_Click(object sender, EventArgs e)
-        {
-            x = MousePosition.X;
-            y = MousePosition.Y;
-            MessageBox.Show(string.Format("X: {0} Y: {1}", MousePosition.X, MousePosition.Y));
-        }*/
-
+        /*   private void frmProba_Click(object sender, EventArgs e)
+           {
+               x = MousePosition.X;
+               y = MousePosition.Y;
+               MessageBox.Show(string.Format("X: {0} Y: {1}", MousePosition.X, MousePosition.Y));
+           }*/
+    //    static Rectangle r2 = GetRect();
         private void trackBar1_Scroll(object sender, EventArgs e)
         {
-            r.X++;
-            r.Y++;
-            r.Width++;
-            r.Height++;
-            angle++;
+
+            //          MessageBox.Show(trackBar1.Value.ToString());
+            //   r.Width = trackBar1.Value * r.Width;
+            //   r.Height = trackBar1.Value * r.Height;
+            int s = trackBar1.Value;
+            if (r.Y < GetRect().Y - 100)
+            {
+                r.Y = s - 100;
+                r.X = (int)calc(r.Y, v1, yCords);
+            }
+            this.Invalidate();
+            //   r2.Width = 10 + trackBar1.Value;
+            //   r2.Height = 10 + trackBar1.Value;
         }
 
         private void frmProba_MouseDown(object sender, MouseEventArgs e)
@@ -131,6 +167,12 @@ namespace Kulcskockas_aminacio
 
                 IsMouseDown = false;
             }
+            rectangleDrawed = true;
+            xCords.Add(r.X);
+            xCords.Add(GetRect().X-100);
+            yCords.Add(r.Y);
+            yCords.Add(GetRect().Y-100);
+            v1 = Interpolation(xCords, yCords, 0);
         }
 
         private void frmProba_Paint(object sender, PaintEventArgs e)
@@ -141,15 +183,16 @@ namespace Kulcskockas_aminacio
             }
         }
 
-        private Rectangle GetRect()
+        private static Rectangle GetRect()
         {
             rect = new Rectangle();
 
-            rect.X = Math.Min(LocationXY.X, LocationXY2.X);
-            rect.Y = Math.Min(LocationXY.Y, LocationXY2.Y);
+            rect.X = LocationXY.X;//Math.Min(LocationXY.X, LocationXY2.X);
+            rect.Y = LocationXY.Y;// Math.Min(LocationXY.Y, LocationXY2.Y);
             rect.Width = Math.Abs(LocationXY.X - LocationXY2.X);
             rect.Height = Math.Abs(LocationXY.Y - LocationXY2.Y);
-
+            kulonbsegx = rect.Width - r.Width;
+            kuly = rect.Height - r.Height;
             return rect;
 
         }
@@ -201,5 +244,43 @@ namespace Kulcskockas_aminacio
                     move_x = (int)(dif_x / 100);
                     move_y = (int)(dif_y / 100);
                 }*/
+        static List<double> result = new List<double>();
+        static List<double> Interpolation(List<double> x, List<double> y, int k)
+        {
+          //  if (newCalculation)
+            {
+                result.Clear();
+            }
+            result.Add(x[0]);
+            var a = new List<double>();
+            for (int i = 1; i < x.Count; i++)
+            {
+                a.Add((x[i] - x[i - 1]) / (y[i + k] - y[i - 1]));
+            }
+            if (a.Count > 1)
+            {
+                var b = Interpolation(a, y, ++k);
+            }
+            else
+            {
+                result.Add(a[0]);
+            }
+            return result;
+        }
+        double calc(double k, List<double> res, List<double> y)
+        {
+            double result = res[0];
+            for (int i = 1; i < res.Count; i++)
+            {
+                double szorzo = 1;
+                for (int j = 0; j < i; j++)
+                {
+                    szorzo *= (k - y[j]);
+                }
+                result += res[i] * szorzo;
+            }
+            return result;
+
+        }
     }
 }

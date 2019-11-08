@@ -21,7 +21,7 @@ namespace Kulcskockas_aminacio
         {
             InitializeComponent();
             graphPane = zedGraphControl1.GraphPane;
-            LineItem lineItem = graphPane.AddCurve("Curve", _pointPairList, Color.Red, SymbolType.Circle);
+            LineItem lineItem = graphPane.AddCurve("Interpolált függvény", _pointPairList, Color.Red, SymbolType.Circle);
             zedGraphControl1.AxisChange();
         }
         private void CreateGraphics(ZedGraphControl zgc)
