@@ -15,75 +15,84 @@ namespace Kulcskockas_aminacio
         Timer timer;
         int angle;
         int transX, transY, transWidth, transHeight, transAngle;
+        double start_time, elapsed_time;
         static Rectangle r = new Rectangle(-100, -100, 50, 50);
         static Rectangle rect;
         static int kulonbsegx, kuly;
         static List<double> xCords = new List<double>();
         static List<double> yCords = new List<double>();
         static List<double> v1 = new List<double>();
+        static List<double> time = new List<double>();
+        static List<double> width = new List<double>();
+        static List<double> v2 = new List<double>();
+        static List<double> height = new List<double>();
+        static List<double> v3 = new List<double>();
+        static List<double> angles = new List<double>();
+        static List<double> v4 = new List<double>();
+        static List<double> v5 = new List<double>();
 
         static Point LocationXY;
         static Point LocationXY2;
-
         bool IsMouseDown = false;
         bool rectangleDrawed = false;
-        /*   static int w = 0;
-           static int h = 0;
-           static int x = 0;
-           static int y = 0;*/
+        static bool newCalculation = false;
+
         public frmProba()
         {
+                  this.SetStyle(ControlStyles.UserPaint, true);
+            //2. Enable double buffer.
+            this.SetStyle(ControlStyles.OptimizedDoubleBuffer, true);
+            //3. Ignore a windows erase message to reduce flicker.
+            this.SetStyle(ControlStyles.AllPaintingInWmPaint,true);
             InitializeComponent();
+
         }
+
         private void frmProba_Load(object sender, EventArgs e)
         {
-            trackBar1.TickFrequency = 10;
-            this.Paint += new PaintEventHandler(Form1_Paint);
+            SetStyle(ControlStyles.UserPaint, true);
+            trackBar1.TickFrequency = 1;
+            dataGridView1.Paint += new PaintEventHandler(Rectangle_Paint);
+            this.Controls.Add(dataGridView1);
             angle = 0;
             timer = new Timer();
             timer.Tick += new EventHandler(timer_Tick);
             timer.Interval = 1;
         }
-        void Form1_Paint(object sender, PaintEventArgs e)
-        {
-            Graphics g = this.CreateGraphics();
-            SolidBrush blueBrush = new SolidBrush(Color.Blue);
-            g.TranslateTransform(100, 100);
-            g.RotateTransform(angle);
-            g.FillRectangle(blueBrush, r);
-        }
+
         void timer_Tick(object sender, EventArgs e)
         {
+            this.Refresh();
+            SetStyle(ControlStyles.UserPaint, true);
+            elapsed_time = (DateTime.Now.Second - start_time)*2;
             if (!rectangleDrawed)
                 return;
             if (angle < transAngle)
-                    angle++;
-            if (r.Width < transWidth || r.Width < GetRect().Width)
             {
-                r.Width += 1;
+                angle = (int)calc(elapsed_time, v4, time);
             }
-            if (r.Width > GetRect().Width)
+            if (r.Height < GetRect().Height || r.Height < transHeight)
             {
-                r.Width--;
+                r.Height = (int)calc(elapsed_time, v3, time);
             }
-            if (r.Height < transHeight || r.Height < GetRect().Height)
+            if (r.X < GetRect().X-100 || r.X < transX)
             {
-                r.Height += 1;
-            }
-            if (r.Height > GetRect().Height)
-            {
-                r.Height -= 1;
+                r.X = (int)calc(elapsed_time, v1, time)-100;
             }
             if (r.Y < GetRect().Y-100 || r.Y < transY)
             {
-                r.Y++;
-                r.X = (int)calc(r.Y, v1, yCords);
-            }  
-            this.Invalidate();
+                r.Y = (int)calc(elapsed_time, v5, time)-100;
+            }
+            if (r.Width < GetRect().Width || r.Width < transWidth)
+            {
+                r.Width = (int)calc(elapsed_time, v2, time);
+            }
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
+            start_time = DateTime.Now.Second;
+            SetStyle(ControlStyles.UserPaint, true);
             if (rectangleDrawed)
             {
                 timer.Start();
@@ -92,24 +101,31 @@ namespace Kulcskockas_aminacio
                
                try
                {
-                   transX = Convert.ToInt32(txtXCord.Text);
-                   transY = Convert.ToInt32(textYCord.Text);
-                   transAngle = Convert.ToInt32(txtAngle.Text);
-                   transWidth = Convert.ToInt32(txtWidth.Text);
-                   transHeight = Convert.ToInt32(txtHeight.Text);
-                //  angle = Convert.ToInt32(txtAngle.Text);
-                //   scar = Convert.ToInt32(txtScal.Text);
-                /*                  Graphics g = this.CreateGraphics();
-                                  g.TranslateTransform(100, 100);
-                                  //rotation procedure
-                                  g.RotateTransform(angle);*/
-                rectangleDrawed = true;
-                xCords.Add(r.X);
-                xCords.Add(GetRect().X - 100);
-                yCords.Add(r.Y);
-                yCords.Add(GetRect().Y - 100);
-                v1 = Interpolation(xCords, yCords, 0);
-            }
+                    transX = Convert.ToInt32(txtXCord.Text);
+                    transY = Convert.ToInt32(textYCord.Text);
+                    transAngle = Convert.ToInt32(txtAngle.Text);
+                    transWidth = Convert.ToInt32(txtWidth.Text);
+                    transHeight = Convert.ToInt32(txtHeight.Text);
+                    transAngle = Convert.ToInt32(txtAngle.Text);
+                    rectangleDrawed = true;
+                    width.Add(40);
+                    width.Add(transWidth);
+                    time.Add(0);
+                    time.Add(20);
+                    v2 = Interpolation(width, time, 0);
+                    height.Add(40);
+                    height.Add(transHeight);
+                    v3 = Interpolation(height, time, 0);
+                    xCords.Add(r.X+100);
+                    xCords.Add(transX);
+                    v1 = Interpolation(xCords, time, 0);
+                    yCords.Add(r.Y+100);
+                    yCords.Add(transY);
+                    v5 = Interpolation(yCords, time, 0);
+                    angles.Add(0);
+                    angles.Add(transAngle);
+                    v4 = Interpolation(angles, time, 0);
+                }
                catch (Exception ex)
                {
                    MessageBox.Show("Nem megfelelő formátumú paraméterek!");
@@ -118,19 +134,12 @@ namespace Kulcskockas_aminacio
 
         }
 
-        /*   private void frmProba_Click(object sender, EventArgs e)
-           {
-               x = MousePosition.X;
-               y = MousePosition.Y;
-               MessageBox.Show(string.Format("X: {0} Y: {1}", MousePosition.X, MousePosition.Y));
-           }*/
-    //    static Rectangle r2 = GetRect();
         private void trackBar1_Scroll(object sender, EventArgs e)
         {
 
-            //          MessageBox.Show(trackBar1.Value.ToString());
-            //   r.Width = trackBar1.Value * r.Width;
-            //   r.Height = trackBar1.Value * r.Height;
+         //   MessageBox.Show(trackBar1.Value.ToString());
+            r.Width = trackBar1.Value * r.Width;
+            r.Height = trackBar1.Value * r.Height;
             int s = trackBar1.Value;
             if (r.Y < GetRect().Y - 100)
             {
@@ -138,19 +147,32 @@ namespace Kulcskockas_aminacio
                 r.X = (int)calc(r.Y, v1, yCords);
             }
             this.Invalidate();
-            //   r2.Width = 10 + trackBar1.Value;
-            //   r2.Height = 10 + trackBar1.Value;
+            r.Width = 10 + trackBar1.Value;
+            r.Height = 10 + trackBar1.Value;
         }
 
-        private void frmProba_MouseDown(object sender, MouseEventArgs e)
+        private void dataGridView1_MouseDown(object sender, MouseEventArgs e)
         {
+            SetStyle(ControlStyles.UserPaint, true);
             IsMouseDown = true;
 
             LocationXY = e.Location;
         }
 
-        private void frmProba_MouseMove(object sender, MouseEventArgs e)
+        private void Rectangle_Paint(object sender, PaintEventArgs e)
         {
+            SetStyle(ControlStyles.UserPaint, true);
+            Graphics g = this.dataGridView1.CreateGraphics();
+            SolidBrush blueBrush = new SolidBrush(Color.Blue);
+            g.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.AntiAlias;
+            g.TranslateTransform(100, 100);
+            g.RotateTransform(angle);
+            g.FillRectangle(blueBrush, r);
+        }
+
+        private void dataGridView1_MouseMove(object sender, MouseEventArgs e)
+        {
+            SetStyle(ControlStyles.UserPaint, true);
             if (IsMouseDown == true)
             {
                 LocationXY2 = e.Location;
@@ -159,8 +181,9 @@ namespace Kulcskockas_aminacio
             }
         }
 
-        private void frmProba_MouseUp(object sender, MouseEventArgs e)
+        private void dataGridView1_MouseUp(object sender, MouseEventArgs e)
         {
+            SetStyle(ControlStyles.UserPaint, true);
             if (IsMouseDown == true)
             {
                 LocationXY2 = e.Location;
@@ -168,15 +191,26 @@ namespace Kulcskockas_aminacio
                 IsMouseDown = false;
             }
             rectangleDrawed = true;
-            xCords.Add(r.X);
-            xCords.Add(GetRect().X-100);
-            yCords.Add(r.Y);
-            yCords.Add(GetRect().Y-100);
-            v1 = Interpolation(xCords, yCords, 0);
+            width.Add(40);
+            width.Add(GetRect().Width);
+            time.Add(0);
+            time.Add(20);
+            v2 = Interpolation(width, time, 0);
+            height.Add(40);
+            height.Add(GetRect().Height);
+            v3 = Interpolation(height, time, 0);
+            xCords.Add(r.X + 100);
+            xCords.Add(GetRect().X);
+            v1 = Interpolation(xCords, time, 0);
+            yCords.Add(r.Y + 100);
+            yCords.Add(GetRect().Y);
+            v5 = Interpolation(yCords, time, 0);
         }
 
-        private void frmProba_Paint(object sender, PaintEventArgs e)
+        private void dataGridView1_Paint(object sender, PaintEventArgs e)
         {
+            e.Graphics.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.HighQuality;
+            SetStyle(ControlStyles.AllPaintingInWmPaint, true);
             if (rect != null)
             {
                 e.Graphics.DrawRectangle(Pens.Red, GetRect());
@@ -187,8 +221,8 @@ namespace Kulcskockas_aminacio
         {
             rect = new Rectangle();
 
-            rect.X = LocationXY.X;//Math.Min(LocationXY.X, LocationXY2.X);
-            rect.Y = LocationXY.Y;// Math.Min(LocationXY.Y, LocationXY2.Y);
+            rect.X = LocationXY.X;
+            rect.Y = LocationXY.Y;
             rect.Width = Math.Abs(LocationXY.X - LocationXY2.X);
             rect.Height = Math.Abs(LocationXY.Y - LocationXY2.Y);
             kulonbsegx = rect.Width - r.Width;
@@ -196,61 +230,13 @@ namespace Kulcskockas_aminacio
             return rect;
 
         }
-
-
-        /*
-                Rectangle r;
-                Graphics g;
-
-                Timer t = new Timer();
-
-                int x = 200;
-                int y = 0;
-
-                int move_x = 0;
-                int move_y = 0;
-
-                private void frmProba_Load(object sender, EventArgs e)
-                {
-                    r = new Rectangle(100, 100, 60, 60);
-                    g = this.CreateGraphics();
-                    r.RenderTransform = new RotateTransform(30);
-
-                    t.Interval = 10;
-                    t.Tick += new EventHandler(t_Tick);
-                    t.Start();
-                }
-
-                void t_Tick(object sender, EventArgs e)
-                {
-                    g.Clear(Color.DarkBlue);
-                    g.DrawRectangle(new Pen(Brushes.Cornsilk, 6), r);
-
-                    r.X += move_x;
-                    r.Y += move_y;
-                }
-                private void frmProba_MouseClick(object sender, MouseEventArgs e)
-                {
-
-                }
-
-                private void frmProba_Click(object sender, EventArgs e)
-                {
-                    /*   x = Cursor.Position.X;
-                       y = Cursor.Position.Y;
-                    double dif_x = Cursor.Position.X - r.X;
-                    double dif_y = Cursor.Position.X - r.Y;
-
-                    move_x = (int)(dif_x / 100);
-                    move_y = (int)(dif_y / 100);
-                }*/
-        static List<double> result = new List<double>();
         static List<double> Interpolation(List<double> x, List<double> y, int k)
         {
-          //  if (newCalculation)
+            List<double> result = new List<double>();
+  /*          if (newCalculation)
             {
                 result.Clear();
-            }
+            }*/
             result.Add(x[0]);
             var a = new List<double>();
             for (int i = 1; i < x.Count; i++)

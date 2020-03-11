@@ -42,7 +42,10 @@
             this.textYCord = new System.Windows.Forms.TextBox();
             this.label5 = new System.Windows.Forms.Label();
             this.txtWidth = new System.Windows.Forms.TextBox();
+            this.dataGridView1 = new System.Windows.Forms.DataGridView();
+            this.button2 = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.trackBar1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
             // 
             // button1
@@ -158,6 +161,27 @@
             this.txtWidth.Size = new System.Drawing.Size(45, 15);
             this.txtWidth.TabIndex = 14;
             // 
+            // dataGridView1
+            // 
+            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridView1.Location = new System.Drawing.Point(255, 19);
+            this.dataGridView1.Name = "dataGridView1";
+            this.dataGridView1.Size = new System.Drawing.Size(517, 403);
+            this.dataGridView1.TabIndex = 16;
+            this.dataGridView1.Paint += new System.Windows.Forms.PaintEventHandler(this.dataGridView1_Paint);
+            this.dataGridView1.MouseDown += new System.Windows.Forms.MouseEventHandler(this.dataGridView1_MouseDown);
+            this.dataGridView1.MouseMove += new System.Windows.Forms.MouseEventHandler(this.dataGridView1_MouseMove);
+            this.dataGridView1.MouseUp += new System.Windows.Forms.MouseEventHandler(this.dataGridView1_MouseUp);
+            // 
+            // button2
+            // 
+            this.button2.Location = new System.Drawing.Point(16, 173);
+            this.button2.Name = "button2";
+            this.button2.Size = new System.Drawing.Size(142, 23);
+            this.button2.TabIndex = 17;
+            this.button2.Text = "Ábrázolás képpel";
+            this.button2.UseVisualStyleBackColor = true;
+            // 
             // frmProba
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -165,6 +189,8 @@
             this.BackgroundImage = global::Kulcskockas_aminacio.Properties.Resources.optimised_image_5;
             this.CancelButton = this.button1;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.button2);
+            this.Controls.Add(this.dataGridView1);
             this.Controls.Add(this.txtWidth);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.textYCord);
@@ -177,15 +203,13 @@
             this.Controls.Add(this.txtAngle);
             this.Controls.Add(this.trackBar1);
             this.Controls.Add(this.button1);
+            this.DoubleBuffered = true;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "frmProba";
             this.Text = "frmProba";
             this.Load += new System.EventHandler(this.frmProba_Load);
-            this.Paint += new System.Windows.Forms.PaintEventHandler(this.frmProba_Paint);
-            this.MouseDown += new System.Windows.Forms.MouseEventHandler(this.frmProba_MouseDown);
-            this.MouseMove += new System.Windows.Forms.MouseEventHandler(this.frmProba_MouseMove);
-            this.MouseUp += new System.Windows.Forms.MouseEventHandler(this.frmProba_MouseUp);
             ((System.ComponentModel.ISupportInitialize)(this.trackBar1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -205,5 +229,7 @@
         private System.Windows.Forms.TextBox textYCord;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.TextBox txtWidth;
+        private System.Windows.Forms.DataGridView dataGridView1;
+        private System.Windows.Forms.Button button2;
     }
 }

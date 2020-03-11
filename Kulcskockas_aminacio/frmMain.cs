@@ -34,5 +34,11 @@ namespace Kulcskockas_aminacio
             frmDescription frm = new frmDescription();
             frm.Show();
         }
+
+        private void képmozgásToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            frmImageMove frm = new frmImageMove();
+            frm.Show();
+        }
     }
 }

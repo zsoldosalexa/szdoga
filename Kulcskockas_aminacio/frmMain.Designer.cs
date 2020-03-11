@@ -33,6 +33,7 @@
             this.leírásToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.interpolációsFüggvénySzámításaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.proba3ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.képmozgásToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.lblTitle = new System.Windows.Forms.Label();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
@@ -44,7 +45,8 @@
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.leírásToolStripMenuItem,
             this.interpolációsFüggvénySzámításaToolStripMenuItem,
-            this.proba3ToolStripMenuItem});
+            this.proba3ToolStripMenuItem,
+            this.képmozgásToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Padding = new System.Windows.Forms.Padding(4, 2, 0, 2);
@@ -78,6 +80,13 @@
             this.proba3ToolStripMenuItem.Size = new System.Drawing.Size(58, 20);
             this.proba3ToolStripMenuItem.Text = "proba3";
             this.proba3ToolStripMenuItem.Click += new System.EventHandler(this.proba3ToolStripMenuItem_Click);
+            // 
+            // képmozgásToolStripMenuItem
+            // 
+            this.képmozgásToolStripMenuItem.Name = "képmozgásToolStripMenuItem";
+            this.képmozgásToolStripMenuItem.Size = new System.Drawing.Size(80, 20);
+            this.képmozgásToolStripMenuItem.Text = "Képmozgás";
+            this.képmozgásToolStripMenuItem.Click += new System.EventHandler(this.képmozgásToolStripMenuItem_Click);
             // 
             // lblTitle
             // 
@@ -118,6 +127,7 @@
         private System.Windows.Forms.ToolStripMenuItem interpolációsFüggvénySzámításaToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem proba3ToolStripMenuItem;
         private System.Windows.Forms.Label lblTitle;
+        private System.Windows.Forms.ToolStripMenuItem képmozgásToolStripMenuItem;
     }
 }
 

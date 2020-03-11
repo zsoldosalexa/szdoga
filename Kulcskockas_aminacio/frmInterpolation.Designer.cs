@@ -35,7 +35,6 @@
             this.btnAdd = new System.Windows.Forms.Button();
             this.btnSave = new System.Windows.Forms.Button();
             this.zedGraphControl1 = new ZedGraph.ZedGraphControl();
-            this.restxt = new System.Windows.Forms.TextBox();
             this.SuspendLayout();
             // 
             // txtCoord
@@ -98,20 +97,12 @@
             this.zedGraphControl1.TabIndex = 4;
             this.zedGraphControl1.ZoomButtons = System.Windows.Forms.MouseButtons.None;
             // 
-            // restxt
-            // 
-            this.restxt.Location = new System.Drawing.Point(25, 142);
-            this.restxt.Name = "restxt";
-            this.restxt.Size = new System.Drawing.Size(100, 20);
-            this.restxt.TabIndex = 5;
-            // 
             // frmInterpolation
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackgroundImage = global::Kulcskockas_aminacio.Properties.Resources.optimised_image_5;
             this.ClientSize = new System.Drawing.Size(600, 366);
-            this.Controls.Add(this.restxt);
             this.Controls.Add(this.zedGraphControl1);
             this.Controls.Add(this.btnSave);
             this.Controls.Add(this.btnAdd);
@@ -133,6 +124,5 @@
         private System.Windows.Forms.Button btnAdd;
         private System.Windows.Forms.Button btnSave;
         private ZedGraph.ZedGraphControl zedGraphControl1;
-        private System.Windows.Forms.TextBox restxt;
     }
 }
