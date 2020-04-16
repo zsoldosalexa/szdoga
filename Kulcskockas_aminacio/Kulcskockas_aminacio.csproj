@@ -53,12 +53,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="frmDescription.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="frmDescription.Designer.cs">
-      <DependentUpon>frmDescription.cs</DependentUpon>
-    </Compile>
     <Compile Include="frmDrawFunction.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -76,6 +70,12 @@
     </Compile>
     <Compile Include="frmMain.Designer.cs">
       <DependentUpon>frmMain.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frmParamChanged.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmParamChanged.Designer.cs">
+      <DependentUpon>frmParamChanged.cs</DependentUpon>
     </Compile>
     <Compile Include="frmProba.cs">
       <SubType>Form</SubType>
@@ -100,13 +100,15 @@
     <EmbeddedResource Include="frmMain.resx">
       <DependentUpon>frmMain.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="frmParamChanged.resx">
+      <DependentUpon>frmParamChanged.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="frmProba.resx">
       <DependentUpon>frmProba.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="frmImageMove.resx">
       <DependentUpon>frmImageMove.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Properties\licenses.licx" />
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>

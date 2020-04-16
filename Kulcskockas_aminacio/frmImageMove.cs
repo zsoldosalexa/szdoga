@@ -38,16 +38,18 @@ namespace Kulcskockas_aminacio
         private void timer_Tick(object sender, EventArgs e)
         {
             elapsed_time = (DateTime.Now.Second - start_time);
-            pictureBox1.Left = (int)calc(elapsed_time, v1, time) + x;
-            pictureBox1.Top = (int)calc(elapsed_time, v5, time) + y;
+            if (pictureBox1.Left < pictureBox2.Left + pictureBox2.Width - 1)
+            {
+                pictureBox1.Left = (int)calc(elapsed_time, v1, time) + x;
+            }
+            if (pictureBox1.Top < pictureBox3.Top + pictureBox3.Height-1)
+            {
+                pictureBox1.Top = (int)calc(elapsed_time, v5, time) + y;
+            }
         }
         static List<double> Interpolation(List<double> x, List<double> y, int k)
         {
             List<double> result = new List<double>();
-            /*          if (newCalculation)
-                      {
-                          result.Clear();
-                      }*/
             result.Add(x[0]);
             var a = new List<double>();
             for (int i = 1; i < x.Count; i++)

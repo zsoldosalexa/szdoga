@@ -29,12 +29,6 @@ namespace Kulcskockas_aminacio
             frm.Show();
         }
 
-        private void leírásToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            frmDescription frm = new frmDescription();
-            frm.Show();
-        }
-
         private void képmozgásToolStripMenuItem_Click(object sender, EventArgs e)
         {
             frmImageMove frm = new frmImageMove();

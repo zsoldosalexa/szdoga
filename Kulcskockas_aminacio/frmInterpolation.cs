@@ -142,7 +142,7 @@ namespace Kulcskockas_aminacio
             List<double> v1 = new List<double>();
             v1 = Interpolation(xCords, yCords, 0);
             PointPairList _pointPairList = new PointPairList();
-            for (int i = 0; i < 7; i++)
+            for (int i = (int)Math.Floor(xCords.Min()); i <= xCords.Max(); i++)
             {
                 _pointPairList.Add(i, calc(i, v1, yCords));
             }

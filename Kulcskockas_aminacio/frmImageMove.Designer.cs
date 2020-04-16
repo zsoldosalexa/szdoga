@@ -45,9 +45,9 @@
             // 
             // pictureBox5
             // 
-            this.pictureBox5.Location = new System.Drawing.Point(-3, 304);
+            this.pictureBox5.Location = new System.Drawing.Point(-3, 317);
             this.pictureBox5.Name = "pictureBox5";
-            this.pictureBox5.Size = new System.Drawing.Size(805, 145);
+            this.pictureBox5.Size = new System.Drawing.Size(805, 140);
             this.pictureBox5.TabIndex = 4;
             this.pictureBox5.TabStop = false;
             // 
@@ -63,7 +63,7 @@
             // 
             this.pictureBox3.Location = new System.Drawing.Point(-3, -3);
             this.pictureBox3.Name = "pictureBox3";
-            this.pictureBox3.Size = new System.Drawing.Size(805, 139);
+            this.pictureBox3.Size = new System.Drawing.Size(805, 111);
             this.pictureBox3.TabIndex = 2;
             this.pictureBox3.TabStop = false;
             // 
@@ -71,14 +71,14 @@
             // 
             this.pictureBox2.Location = new System.Drawing.Point(-3, 2);
             this.pictureBox2.Name = "pictureBox2";
-            this.pictureBox2.Size = new System.Drawing.Size(216, 447);
+            this.pictureBox2.Size = new System.Drawing.Size(183, 447);
             this.pictureBox2.TabIndex = 1;
             this.pictureBox2.TabStop = false;
             // 
             // pictureBox1
             // 
             this.pictureBox1.Image = global::Kulcskockas_aminacio.Properties.Resources.b;
-            this.pictureBox1.Location = new System.Drawing.Point(-79, -42);
+            this.pictureBox1.Location = new System.Drawing.Point(-445, -3);
             this.pictureBox1.Name = "pictureBox1";
             this.pictureBox1.Size = new System.Drawing.Size(2000, 2000);
             this.pictureBox1.TabIndex = 0;
@@ -88,9 +88,9 @@
             // 
             this.button1.Location = new System.Drawing.Point(13, 13);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(35, 31);
+            this.button1.Size = new System.Drawing.Size(40, 31);
             this.button1.TabIndex = 5;
-            this.button1.Text = "button1";
+            this.button1.Text = "Start";
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.button1_Click);
             // 

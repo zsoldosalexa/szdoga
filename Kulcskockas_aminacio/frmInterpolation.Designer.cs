@@ -96,6 +96,7 @@
             this.zedGraphControl1.Size = new System.Drawing.Size(413, 336);
             this.zedGraphControl1.TabIndex = 4;
             this.zedGraphControl1.ZoomButtons = System.Windows.Forms.MouseButtons.None;
+           // this.zedGraphControl1.Load += new System.EventHandler(this.zedGraphControl1_Load);
             // 
             // frmInterpolation
             // 

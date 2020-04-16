@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using ZedGraph;
 
 namespace Kulcskockas_aminacio
 {
@@ -30,12 +31,20 @@ namespace Kulcskockas_aminacio
         static List<double> angles = new List<double>();
         static List<double> v4 = new List<double>();
         static List<double> v5 = new List<double>();
-
+        static List<double> result = new List<double>();
+        static List<Rectangle> rectangles = new List<Rectangle>();
         static Point LocationXY;
         static Point LocationXY2;
         bool IsMouseDown = false;
         bool rectangleDrawed = false;
-        static bool newCalculation = false;
+        PointPairList widthPoints = new PointPairList();
+        PointPairList heightPoints = new PointPairList();
+        PointPairList xPoints = new PointPairList();
+        PointPairList yPoints = new PointPairList();
+        PointPairList anglePoints = new PointPairList();
+
+        static int ms=0;
+        static int rajzoltTeglalapokSzama = 0;
 
         public frmProba()
         {
@@ -47,11 +56,26 @@ namespace Kulcskockas_aminacio
             InitializeComponent();
 
         }
+        private void NewStart()
+        {
+            r = new Rectangle(-100, -100, 50, 50);
+            xCords = new List<double>();
+            yCords = new List<double>();
+            v1 = new List<double>();
+            time = new List<double>();
+            width = new List<double>();
+            v2 = new List<double>();
+            height = new List<double>();
+            v3 = new List<double>();
+            angles = new List<double>();
+            v4 = new List<double>();
+            v5 = new List<double>();
+            rectangleDrawed = false;
 
+        }
         private void frmProba_Load(object sender, EventArgs e)
         {
             SetStyle(ControlStyles.UserPaint, true);
-            trackBar1.TickFrequency = 1;
             dataGridView1.Paint += new PaintEventHandler(Rectangle_Paint);
             this.Controls.Add(dataGridView1);
             angle = 0;
@@ -61,40 +85,55 @@ namespace Kulcskockas_aminacio
         }
 
         void timer_Tick(object sender, EventArgs e)
+        //  void idozito()
         {
+            ms++;
             this.Refresh();
             SetStyle(ControlStyles.UserPaint, true);
-            elapsed_time = (DateTime.Now.Second - start_time)*2;
             if (!rectangleDrawed)
                 return;
             if (angle < transAngle)
             {
-                angle = (int)calc(elapsed_time, v4, time);
+                angle = (int)calc(ms, v4, time);
+                anglePoints.Add(ms, angle);
             }
             if (r.Height < GetRect().Height || r.Height < transHeight)
             {
-                r.Height = (int)calc(elapsed_time, v3, time);
+                r.Height = (int)calc(ms, v3, time);
+                heightPoints.Add(ms, r.Height);
             }
             if (r.X < GetRect().X-100 || r.X < transX)
             {
-                r.X = (int)calc(elapsed_time, v1, time)-100;
+                r.X = (int)calc(ms, v1, time)-100;
+                xPoints.Add(ms, r.X + 100);
             }
             if (r.Y < GetRect().Y-100 || r.Y < transY)
             {
-                r.Y = (int)calc(elapsed_time, v5, time)-100;
+                r.Y = (int)calc(ms, v5, time)-100;
+                yPoints.Add(ms, r.Y + 100);
             }
             if (r.Width < GetRect().Width || r.Width < transWidth)
             {
-                r.Width = (int)calc(elapsed_time, v2, time);
+                r.Width = (int)calc(ms, v2, time);
+                widthPoints.Add(ms, r.Width);
             }
+            //idozito();
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
             start_time = DateTime.Now.Second;
             SetStyle(ControlStyles.UserPaint, true);
+            PointPairList heightPoints = new PointPairList();
             if (rectangleDrawed)
             {
+                v1 = Interpolation(xCords, time, 0).ToList();
+                result.Clear();
+                v2 = Interpolation(width, time, 0).ToList();
+                result.Clear();
+                v3 = Interpolation(height, time, 0).ToList();
+                result.Clear();
+                v5 = Interpolation(yCords, time, 0).ToList();
                 timer.Start();
                 return;
             }
@@ -106,12 +145,11 @@ namespace Kulcskockas_aminacio
                     transAngle = Convert.ToInt32(txtAngle.Text);
                     transWidth = Convert.ToInt32(txtWidth.Text);
                     transHeight = Convert.ToInt32(txtHeight.Text);
-                    transAngle = Convert.ToInt32(txtAngle.Text);
                     rectangleDrawed = true;
                     width.Add(40);
                     width.Add(transWidth);
                     time.Add(0);
-                    time.Add(20);
+                    time.Add(40);
                     v2 = Interpolation(width, time, 0);
                     height.Add(40);
                     height.Add(transHeight);
@@ -132,24 +170,7 @@ namespace Kulcskockas_aminacio
                }
             timer.Start();
 
-        }
-
-        private void trackBar1_Scroll(object sender, EventArgs e)
-        {
-
-         //   MessageBox.Show(trackBar1.Value.ToString());
-            r.Width = trackBar1.Value * r.Width;
-            r.Height = trackBar1.Value * r.Height;
-            int s = trackBar1.Value;
-            if (r.Y < GetRect().Y - 100)
-            {
-                r.Y = s - 100;
-                r.X = (int)calc(r.Y, v1, yCords);
-            }
-            this.Invalidate();
-            r.Width = 10 + trackBar1.Value;
-            r.Height = 10 + trackBar1.Value;
-        }
+        } 
 
         private void dataGridView1_MouseDown(object sender, MouseEventArgs e)
         {
@@ -161,13 +182,37 @@ namespace Kulcskockas_aminacio
 
         private void Rectangle_Paint(object sender, PaintEventArgs e)
         {
-            SetStyle(ControlStyles.UserPaint, true);
+    /*        SetStyle(ControlStyles.UserPaint, true);
             Graphics g = this.dataGridView1.CreateGraphics();
             SolidBrush blueBrush = new SolidBrush(Color.Blue);
             g.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.AntiAlias;
             g.TranslateTransform(100, 100);
             g.RotateTransform(angle);
-            g.FillRectangle(blueBrush, r);
+            g.FillRectangle(blueBrush, r);*/
+        }
+
+        private void frmProba_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            timer.Stop();
+            r = new Rectangle(-100, -100, 50, 50);
+            xCords = new List<double>();
+            yCords = new List<double>();
+            v1 = new List<double>();
+            time = new List<double>();
+            width = new List<double>();
+            v2 = new List<double>();
+            height = new List<double>();
+            v3 = new List<double>();
+            angles = new List<double>();
+            v4 = new List<double>();
+            v5 = new List<double>();
+            rectangleDrawed = false;
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+              frmParamChanged frm = new frmParamChanged(widthPoints, heightPoints, xPoints, yPoints, anglePoints);
+              frm.Show();
         }
 
         private void dataGridView1_MouseMove(object sender, MouseEventArgs e)
@@ -183,6 +228,7 @@ namespace Kulcskockas_aminacio
 
         private void dataGridView1_MouseUp(object sender, MouseEventArgs e)
         {
+            rajzoltTeglalapokSzama++;
             SetStyle(ControlStyles.UserPaint, true);
             if (IsMouseDown == true)
             {
@@ -190,28 +236,35 @@ namespace Kulcskockas_aminacio
 
                 IsMouseDown = false;
             }
-            rectangleDrawed = true;
-            width.Add(40);
+            if (!rectangleDrawed)
+            {
+                width.Add(40);
+                height.Add(40);
+                xCords.Add(r.X + 100);
+                yCords.Add(r.Y + 100);
+                time.Add(0);
+            }
             width.Add(GetRect().Width);
-            time.Add(0);
-            time.Add(20);
-            v2 = Interpolation(width, time, 0);
-            height.Add(40);
+            time.Add(20 * rajzoltTeglalapokSzama);
             height.Add(GetRect().Height);
-            v3 = Interpolation(height, time, 0);
-            xCords.Add(r.X + 100);
             xCords.Add(GetRect().X);
-            v1 = Interpolation(xCords, time, 0);
-            yCords.Add(r.Y + 100);
             yCords.Add(GetRect().Y);
-            v5 = Interpolation(yCords, time, 0);
+            rectangleDrawed = true;
         }
 
         private void dataGridView1_Paint(object sender, PaintEventArgs e)
         {
+            SetStyle(ControlStyles.UserPaint, true);
+            Graphics g = this.dataGridView1.CreateGraphics();
+            SolidBrush blueBrush = new SolidBrush(Color.Blue);
+            g.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.AntiAlias;
+            g.TranslateTransform(100, 100);
+            g.RotateTransform(angle);
+            g.FillRectangle(blueBrush, r);
             e.Graphics.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.HighQuality;
             SetStyle(ControlStyles.AllPaintingInWmPaint, true);
-            if (rect != null)
+           // if (rect != null)
+          // foreach(Rectangle _rect in rectangles)
             {
                 e.Graphics.DrawRectangle(Pens.Red, GetRect());
             }
@@ -227,16 +280,12 @@ namespace Kulcskockas_aminacio
             rect.Height = Math.Abs(LocationXY.Y - LocationXY2.Y);
             kulonbsegx = rect.Width - r.Width;
             kuly = rect.Height - r.Height;
+            rectangles.Add(rect);
             return rect;
 
         }
         static List<double> Interpolation(List<double> x, List<double> y, int k)
         {
-            List<double> result = new List<double>();
-  /*          if (newCalculation)
-            {
-                result.Clear();
-            }*/
             result.Add(x[0]);
             var a = new List<double>();
             for (int i = 1; i < x.Count; i++)
@@ -268,5 +317,6 @@ namespace Kulcskockas_aminacio
             return result;
 
         }
+        
     }
 }
