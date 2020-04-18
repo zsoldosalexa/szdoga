@@ -36,6 +36,7 @@ namespace Kulcskockas_aminacio
         static Point LocationXY;
         static Point LocationXY2;
         bool IsMouseDown = false;
+        bool IsMouseUp = false;
         bool rectangleDrawed = false;
         PointPairList widthPoints = new PointPairList();
         PointPairList heightPoints = new PointPairList();
@@ -54,6 +55,8 @@ namespace Kulcskockas_aminacio
             //3. Ignore a windows erase message to reduce flicker.
             this.SetStyle(ControlStyles.AllPaintingInWmPaint,true);
             InitializeComponent();
+            rajzoltTeglalapokSzama = 0;
+
 
         }
         private void NewStart()
@@ -71,6 +74,7 @@ namespace Kulcskockas_aminacio
             v4 = new List<double>();
             v5 = new List<double>();
             rectangleDrawed = false;
+            rectangles.Clear();
 
         }
         private void frmProba_Load(object sender, EventArgs e)
@@ -85,39 +89,42 @@ namespace Kulcskockas_aminacio
         }
 
         void timer_Tick(object sender, EventArgs e)
-        //  void idozito()
         {
+            if (ms == time.Max())
+            {
+                timer.Stop();
+            }
             ms++;
             this.Refresh();
             SetStyle(ControlStyles.UserPaint, true);
             if (!rectangleDrawed)
                 return;
-            if (angle < transAngle)
+      //      if (angle < transAngle)
+                if (v4.Count != 0)
             {
                 angle = (int)calc(ms, v4, time);
-                anglePoints.Add(ms, angle);
             }
-            if (r.Height < GetRect().Height || r.Height < transHeight)
+       //     if (r.Height < GetRect().Height || r.Height < transHeight)
             {
                 r.Height = (int)calc(ms, v3, time);
-                heightPoints.Add(ms, r.Height);
             }
-            if (r.X < GetRect().X-100 || r.X < transX)
+        //    if (r.X < GetRect().X-100 || r.X < transX)
             {
                 r.X = (int)calc(ms, v1, time)-100;
-                xPoints.Add(ms, r.X + 100);
             }
-            if (r.Y < GetRect().Y-100 || r.Y < transY)
+         //   if (r.Y < GetRect().Y-100 || r.Y < transY)
             {
                 r.Y = (int)calc(ms, v5, time)-100;
-                yPoints.Add(ms, r.Y + 100);
             }
-            if (r.Width < GetRect().Width || r.Width < transWidth)
+         //   if (r.Width < GetRect().Width || r.Width < transWidth)
             {
                 r.Width = (int)calc(ms, v2, time);
-                widthPoints.Add(ms, r.Width);
             }
-            //idozito();
+            anglePoints.Add(ms, angle);
+            heightPoints.Add(ms, r.Height);
+            xPoints.Add(ms, r.X + 100);
+            yPoints.Add(ms, r.Y + 100);
+            widthPoints.Add(ms, r.Width);
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -134,6 +141,7 @@ namespace Kulcskockas_aminacio
                 v3 = Interpolation(height, time, 0).ToList();
                 result.Clear();
                 v5 = Interpolation(yCords, time, 0).ToList();
+                result.Clear();
                 timer.Start();
                 return;
             }
@@ -150,20 +158,25 @@ namespace Kulcskockas_aminacio
                     width.Add(transWidth);
                     time.Add(0);
                     time.Add(40);
-                    v2 = Interpolation(width, time, 0);
+                    v2 = Interpolation(width, time, 0).ToList();
+                    result.Clear();
                     height.Add(40);
                     height.Add(transHeight);
-                    v3 = Interpolation(height, time, 0);
+                    v3 = Interpolation(height, time, 0).ToList();
+                    result.Clear();
                     xCords.Add(r.X+100);
                     xCords.Add(transX);
-                    v1 = Interpolation(xCords, time, 0);
+                    v1 = Interpolation(xCords, time, 0).ToList();
+                    result.Clear();
                     yCords.Add(r.Y+100);
                     yCords.Add(transY);
-                    v5 = Interpolation(yCords, time, 0);
+                    v5 = Interpolation(yCords, time, 0).ToList();
+                    result.Clear();
                     angles.Add(0);
                     angles.Add(transAngle);
-                    v4 = Interpolation(angles, time, 0);
-                }
+                    v4 = Interpolation(angles, time, 0).ToList();
+                    result.Clear();
+            }
                catch (Exception ex)
                {
                    MessageBox.Show("Nem megfelelő formátumú paraméterek!");
@@ -174,6 +187,7 @@ namespace Kulcskockas_aminacio
 
         private void dataGridView1_MouseDown(object sender, MouseEventArgs e)
         {
+            rajzoltTeglalapokSzama++;
             SetStyle(ControlStyles.UserPaint, true);
             IsMouseDown = true;
 
@@ -191,7 +205,7 @@ namespace Kulcskockas_aminacio
             g.FillRectangle(blueBrush, r);*/
         }
 
-        private void frmProba_FormClosed(object sender, FormClosedEventArgs e)
+        private void frmProba_FormClosing(object sender, FormClosingEventArgs e)
         {
             timer.Stop();
             r = new Rectangle(-100, -100, 50, 50);
@@ -207,12 +221,21 @@ namespace Kulcskockas_aminacio
             v4 = new List<double>();
             v5 = new List<double>();
             rectangleDrawed = false;
+            rectangles.Clear();
+            rect = new Rectangle();
+            ms = 0;
         }
 
         private void button3_Click(object sender, EventArgs e)
         {
               frmParamChanged frm = new frmParamChanged(widthPoints, heightPoints, xPoints, yPoints, anglePoints);
               frm.Show();
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            frmImageMove frm = new frmImageMove(v1, v2, v3, v4, v5);
+            frm.Show();
         }
 
         private void dataGridView1_MouseMove(object sender, MouseEventArgs e)
@@ -228,7 +251,6 @@ namespace Kulcskockas_aminacio
 
         private void dataGridView1_MouseUp(object sender, MouseEventArgs e)
         {
-            rajzoltTeglalapokSzama++;
             SetStyle(ControlStyles.UserPaint, true);
             if (IsMouseDown == true)
             {
@@ -250,6 +272,7 @@ namespace Kulcskockas_aminacio
             xCords.Add(GetRect().X);
             yCords.Add(GetRect().Y);
             rectangleDrawed = true;
+            IsMouseUp = true;
         }
 
         private void dataGridView1_Paint(object sender, PaintEventArgs e)
@@ -261,12 +284,18 @@ namespace Kulcskockas_aminacio
             g.TranslateTransform(100, 100);
             g.RotateTransform(angle);
             g.FillRectangle(blueBrush, r);
+
+            if (rajzoltTeglalapokSzama == 0)
+                return;
+            if (rect != null)
+            {
+                rectangles.Add(GetRect());
+            }
             e.Graphics.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.HighQuality;
             SetStyle(ControlStyles.AllPaintingInWmPaint, true);
-           // if (rect != null)
-          // foreach(Rectangle _rect in rectangles)
+            foreach(Rectangle _rect in rectangles)
             {
-                e.Graphics.DrawRectangle(Pens.Red, GetRect());
+                e.Graphics.DrawRectangle(Pens.Red, _rect);
             }
         }
 
@@ -280,7 +309,6 @@ namespace Kulcskockas_aminacio
             rect.Height = Math.Abs(LocationXY.Y - LocationXY2.Y);
             kulonbsegx = rect.Width - r.Width;
             kuly = rect.Height - r.Height;
-            rectangles.Add(rect);
             return rect;
 
         }

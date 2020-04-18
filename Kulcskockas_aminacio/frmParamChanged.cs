@@ -28,11 +28,11 @@ namespace Kulcskockas_aminacio
               LineItem shiftYLineItem = graphPane.AddCurve("Y koordináta", shiftY, Color.Yellow, SymbolType.None);
               LineItem angleLineItem = graphPane.AddCurve("Forgatási szög", angle, Color.Purple, SymbolType.None);
 
-              widthLineItem.Line.Width = 3.0F;
-              heightLineItem.Line.Width = 3.0F;
-              shiftXLineItem.Line.Width = 3.0F;
-              shiftYLineItem.Line.Width = 3.0F;
-              angleLineItem.Line.Width = 3.0F;
+              widthLineItem.Line.Width = 5.0F;
+              heightLineItem.Line.Width = 5.0F;
+              shiftXLineItem.Line.Width = 5.0F;
+              shiftYLineItem.Line.Width = 5.0F;
+              angleLineItem.Line.Width = 5.0F;
 
               zedGraphControl2.AxisChange();
           }

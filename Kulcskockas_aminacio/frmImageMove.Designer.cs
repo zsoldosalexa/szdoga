@@ -45,9 +45,9 @@
             // 
             // pictureBox5
             // 
-            this.pictureBox5.Location = new System.Drawing.Point(-3, 317);
+            this.pictureBox5.Location = new System.Drawing.Point(-3, 404);
             this.pictureBox5.Name = "pictureBox5";
-            this.pictureBox5.Size = new System.Drawing.Size(805, 140);
+            this.pictureBox5.Size = new System.Drawing.Size(805, 53);
             this.pictureBox5.TabIndex = 4;
             this.pictureBox5.TabStop = false;
             // 
@@ -63,7 +63,7 @@
             // 
             this.pictureBox3.Location = new System.Drawing.Point(-3, -3);
             this.pictureBox3.Name = "pictureBox3";
-            this.pictureBox3.Size = new System.Drawing.Size(805, 111);
+            this.pictureBox3.Size = new System.Drawing.Size(805, 61);
             this.pictureBox3.TabIndex = 2;
             this.pictureBox3.TabStop = false;
             // 
@@ -71,14 +71,14 @@
             // 
             this.pictureBox2.Location = new System.Drawing.Point(-3, 2);
             this.pictureBox2.Name = "pictureBox2";
-            this.pictureBox2.Size = new System.Drawing.Size(183, 447);
+            this.pictureBox2.Size = new System.Drawing.Size(151, 447);
             this.pictureBox2.TabIndex = 1;
             this.pictureBox2.TabStop = false;
             // 
             // pictureBox1
             // 
             this.pictureBox1.Image = global::Kulcskockas_aminacio.Properties.Resources.b;
-            this.pictureBox1.Location = new System.Drawing.Point(-445, -3);
+            this.pictureBox1.Location = new System.Drawing.Point(139, 52);
             this.pictureBox1.Name = "pictureBox1";
             this.pictureBox1.Size = new System.Drawing.Size(2000, 2000);
             this.pictureBox1.TabIndex = 0;
@@ -96,7 +96,7 @@
             // 
             // button2
             // 
-            this.button2.Location = new System.Drawing.Point(614, 396);
+            this.button2.Location = new System.Drawing.Point(614, 415);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(75, 23);
             this.button2.TabIndex = 6;
@@ -122,6 +122,7 @@
             this.Controls.Add(this.pictureBox1);
             this.Name = "frmImageMove";
             this.Text = "Kepmozgas";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.frmImageMove_FormClosing);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox5)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox4)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).EndInit();

@@ -171,6 +171,7 @@
             this.button2.TabIndex = 17;
             this.button2.Text = "Ábrázolás képpel";
             this.button2.UseVisualStyleBackColor = true;
+            this.button2.Click += new System.EventHandler(this.button2_Click);
             // 
             // button3
             // 
@@ -207,7 +208,7 @@
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "frmProba";
             this.Text = "frmProba";
-            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.frmProba_FormClosed);
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.frmProba_FormClosing);
             this.Load += new System.EventHandler(this.frmProba_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             this.ResumeLayout(false);
