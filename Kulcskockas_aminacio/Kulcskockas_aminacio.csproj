@@ -53,12 +53,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="frmDrawFunction.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="frmDrawFunction.Designer.cs">
-      <DependentUpon>frmDrawFunction.cs</DependentUpon>
-    </Compile>
     <Compile Include="frmInterpolation.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -91,9 +85,6 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <EmbeddedResource Include="frmDrawFunction.resx">
-      <DependentUpon>frmDrawFunction.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="frmInterpolation.resx">
       <DependentUpon>frmInterpolation.cs</DependentUpon>
     </EmbeddedResource>

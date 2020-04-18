@@ -80,7 +80,6 @@ namespace Kulcskockas_aminacio
         private void frmProba_Load(object sender, EventArgs e)
         {
             SetStyle(ControlStyles.UserPaint, true);
-            dataGridView1.Paint += new PaintEventHandler(Rectangle_Paint);
             this.Controls.Add(dataGridView1);
             angle = 0;
             timer = new Timer();
@@ -99,27 +98,18 @@ namespace Kulcskockas_aminacio
             SetStyle(ControlStyles.UserPaint, true);
             if (!rectangleDrawed)
                 return;
-      //      if (angle < transAngle)
-                if (v4.Count != 0)
+            if (v4.Count != 0)
             {
                 angle = (int)calc(ms, v4, time);
             }
        //     if (r.Height < GetRect().Height || r.Height < transHeight)
-            {
                 r.Height = (int)calc(ms, v3, time);
-            }
-        //    if (r.X < GetRect().X-100 || r.X < transX)
-            {
-                r.X = (int)calc(ms, v1, time)-100;
-            }
-         //   if (r.Y < GetRect().Y-100 || r.Y < transY)
-            {
-                r.Y = (int)calc(ms, v5, time)-100;
-            }
-         //   if (r.Width < GetRect().Width || r.Width < transWidth)
-            {
+        //    if (r.X < GetRect().X-100 || r.X < transX)            
+                r.X = (int)calc(ms, v1, time)-100;            
+         //   if (r.Y < GetRect().Y-100 || r.Y < transY)            
+                r.Y = (int)calc(ms, v5, time)-100;            
+         //   if (r.Width < GetRect().Width || r.Width < transWidth)            
                 r.Width = (int)calc(ms, v2, time);
-            }
             anglePoints.Add(ms, angle);
             heightPoints.Add(ms, r.Height);
             xPoints.Add(ms, r.X + 100);
@@ -192,17 +182,6 @@ namespace Kulcskockas_aminacio
             IsMouseDown = true;
 
             LocationXY = e.Location;
-        }
-
-        private void Rectangle_Paint(object sender, PaintEventArgs e)
-        {
-    /*        SetStyle(ControlStyles.UserPaint, true);
-            Graphics g = this.dataGridView1.CreateGraphics();
-            SolidBrush blueBrush = new SolidBrush(Color.Blue);
-            g.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.AntiAlias;
-            g.TranslateTransform(100, 100);
-            g.RotateTransform(angle);
-            g.FillRectangle(blueBrush, r);*/
         }
 
         private void frmProba_FormClosing(object sender, FormClosingEventArgs e)

@@ -83,6 +83,7 @@
             this.pictureBox1.Size = new System.Drawing.Size(2000, 2000);
             this.pictureBox1.TabIndex = 0;
             this.pictureBox1.TabStop = false;
+            this.pictureBox1.Paint += new System.Windows.Forms.PaintEventHandler(this.pictureBox1_Paint);
             // 
             // button1
             // 
@@ -123,6 +124,7 @@
             this.Name = "frmImageMove";
             this.Text = "Kepmozgas";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.frmImageMove_FormClosing);
+            this.Load += new System.EventHandler(this.frmImageMove_Load);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox5)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox4)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).EndInit();

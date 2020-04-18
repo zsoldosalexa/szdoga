@@ -31,6 +31,7 @@ namespace Kulcskockas_aminacio
         static int x, y, w, h;
         static int ms = 0;
         Image img;
+        Graphics g;
 
         public frmImageMove(List<double> _v1, List<double> _v2, List<double> _v3, List<double> _v4, List<double> _v5)
         {
@@ -50,35 +51,15 @@ namespace Kulcskockas_aminacio
         private void timer_Tick(object sender, EventArgs e)
         {
             ms++;
-            // elapsed_time = (DateTime.Now.Second - start_time);
-            //  if (pictureBox1.Left < pictureBox2.Left + pictureBox2.Width - 1)
-
-            pictureBox1.Height = h - (int)calc(ms, v3, time);
-            pictureBox1.Width = w - (int)calc(ms,v2,time);
-            pictureBox1.Left = x - (int)calc(ms, v1, time);
-            pictureBox1.Top = y - (int)calc(ms, v5, time);
-            //  img = RotateImage(img, 45);
+            //  pictureBox1.Height = h - (int)calc(ms, v3, time);
+            //  pictureBox1.Width = w - (int)calc(ms,v2,time);
+            //  pictureBox1.Left = x - (int)calc(ms, v1, time);
+            // pictureBox1.Top = y - (int)calc(ms, v5, time);
+            //img = (Image)RotateImage(img, ms).Clone();
+     //       img = RotateImage(img, ms);
+    //        g.RotateTransform(ms);
             pictureBox1.SizeMode = PictureBoxSizeMode.StretchImage;
         }
-    /*    static List<double> Interpolation(List<double> x, List<double> y, int k)
-        {
-            List<double> result = new List<double>();
-            result.Add(x[0]);
-            var a = new List<double>();
-            for (int i = 1; i < x.Count; i++)
-            {
-                a.Add((x[i] - x[i - 1]) / (y[i + k] - y[i - 1]));
-            }
-            if (a.Count > 1)
-            {
-                var b = Interpolation(a, y, ++k);
-            }
-            else
-            {
-                result.Add(a[0]);
-            }
-            return result;
-        }*/
 
         private void frmImageMove_FormClosing(object sender, FormClosingEventArgs e)
         {
@@ -86,6 +67,23 @@ namespace Kulcskockas_aminacio
             pictureBox1.Top = y;
             pictureBox1.Width = w;
             pictureBox1.Height = h;
+            ms = 0;
+        }
+
+        private void pictureBox1_Paint(object sender, PaintEventArgs e)
+        {
+            Graphics g = this.pictureBox1.CreateGraphics();
+            g.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.AntiAlias;
+            g.TranslateTransform(100, 100);
+            g.RotateTransform(ms);
+        }
+
+        private void frmImageMove_Load(object sender, EventArgs e)
+        {
+            this.Controls.Add(pictureBox1);
+            timer = new Timer();
+            timer.Tick += new EventHandler(timer_Tick);
+            timer.Interval = 1;
         }
 
         private void button2_Click(object sender, EventArgs e)
@@ -127,15 +125,6 @@ namespace Kulcskockas_aminacio
             start_time = DateTime.Now.Second;
             time.Add(0);
             time.Add(20);
- /*           xCords.Add(0);
-            xCords.Add(200);
-            v1 = Interpolation(xCords, time, 0);
-            yCords.Add(0);
-            yCords.Add(200);
-            v5 = Interpolation(yCords, time, 0);*/
-            timer = new Timer();
-            timer.Tick += new EventHandler(timer_Tick);
-            timer.Interval = 100;
             timer.Start();
         }
         public static Image RotateImage(Image img, float rotationAngle)
