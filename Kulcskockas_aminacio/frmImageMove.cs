@@ -30,7 +30,7 @@ namespace Kulcskockas_aminacio
         double elapsed_time, start_time;
         static int x, y, w, h;
         static int ms = 0;
-        Image img;
+        Bitmap bitmap;
         Graphics g;
 
         public frmImageMove(List<double> _v1, List<double> _v2, List<double> _v3, List<double> _v4, List<double> _v5)
@@ -40,24 +40,37 @@ namespace Kulcskockas_aminacio
             y = pictureBox1.Top;
             w = pictureBox1.Width;
             h = pictureBox1.Height;
-            img = pictureBox1.Image;
             v1 = _v1.ToList();
             v2 = _v2.ToList();
             v3 = _v3.ToList();
             v4 = _v4.ToList();
             v5 = _v5.ToList();
+            bitmap = new Bitmap(pictureBox1.Image);
         }
 
         private void timer_Tick(object sender, EventArgs e)
         {
+          //  if (ms == time.Max())
+            {
+           //     timer.Stop();
+            }
             ms++;
-            //  pictureBox1.Height = h - (int)calc(ms, v3, time);
-            //  pictureBox1.Width = w - (int)calc(ms,v2,time);
-            //  pictureBox1.Left = x - (int)calc(ms, v1, time);
-            // pictureBox1.Top = y - (int)calc(ms, v5, time);
-            //img = (Image)RotateImage(img, ms).Clone();
-     //       img = RotateImage(img, ms);
-    //        g.RotateTransform(ms);
+            pictureBox1.Height = h - (int)calc(ms, v3, time);
+            pictureBox1.Width = w - (int)calc(ms,v2,time);
+            if (pictureBox1.Left >-500 )
+            {
+                pictureBox1.Left = x - (int)calc(ms, v1, time);
+            }
+            if (pictureBox1.Top > -500)
+            {
+                pictureBox1.Top = y - (int)calc(ms, v5, time);
+            }
+            if (v4.Count != 0)
+            {
+                bitmap = new Bitmap(pictureBox1.Image);
+                bitmap = RotateImage(bitmap, (int)calc(ms, v4, time));
+                pictureBox1.Image = bitmap;
+            }
             pictureBox1.SizeMode = PictureBoxSizeMode.StretchImage;
         }
 
@@ -83,7 +96,7 @@ namespace Kulcskockas_aminacio
             this.Controls.Add(pictureBox1);
             timer = new Timer();
             timer.Tick += new EventHandler(timer_Tick);
-            timer.Interval = 1;
+            timer.Interval = 100;
         }
 
         private void button2_Click(object sender, EventArgs e)
@@ -124,37 +137,27 @@ namespace Kulcskockas_aminacio
         {
             start_time = DateTime.Now.Second;
             time.Add(0);
-            time.Add(20);
+            time.Add(40);
             timer.Start();
         }
-        public static Image RotateImage(Image img, float rotationAngle)
+        private Bitmap RotateImage(Bitmap bmp, float angle)
         {
-            //create an empty Bitmap image
-            Bitmap bmp = new Bitmap(img.Width, img.Height);
+            Bitmap rotatedImage = new Bitmap(bmp.Width, bmp.Height);
+            rotatedImage.SetResolution(bmp.HorizontalResolution, bmp.VerticalResolution);
 
-            //turn the Bitmap into a Graphics object
-            Graphics gfx = Graphics.FromImage(bmp);
+            using (Graphics g = Graphics.FromImage(rotatedImage))
+            {
+                // Set the rotation point to the center in the matrix
+                g.TranslateTransform(bmp.Width / 2, bmp.Height / 2);
+                // Rotate
+                g.RotateTransform(angle);
+                // Restore rotation point in the matrix
+                g.TranslateTransform(-bmp.Width / 2, -bmp.Height / 2);
+                // Draw the image on the bitmap
+                g.DrawImage(bmp, new Point(0, 0));
+            }
 
-            //now we set the rotation point to the center of our image
-            gfx.TranslateTransform((float)bmp.Width / 2, (float)bmp.Height / 2);
-
-            //now rotate the image
-            gfx.RotateTransform(rotationAngle);
-
-            gfx.TranslateTransform(-(float)bmp.Width / 2, -(float)bmp.Height / 2);
-
-            //set the InterpolationMode to HighQualityBicubic so to ensure a high
-            //quality image once it is transformed to the specified size
-            gfx.InterpolationMode = InterpolationMode.HighQualityBicubic;
-
-            //now draw our new image onto the graphics object
-            gfx.DrawImage(img, new Point(0, 0));
-
-            //dispose of our Graphics object
-            gfx.Dispose();
-
-            //return the image
-            return bmp;
+            return rotatedImage;
         }
     }
 }

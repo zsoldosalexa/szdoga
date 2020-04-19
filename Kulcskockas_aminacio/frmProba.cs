@@ -89,11 +89,6 @@ namespace Kulcskockas_aminacio
 
         void timer_Tick(object sender, EventArgs e)
         {
-            if (ms == time.Max())
-            {
-                timer.Stop();
-            }
-            ms++;
             this.Refresh();
             SetStyle(ControlStyles.UserPaint, true);
             if (!rectangleDrawed)
@@ -115,6 +110,13 @@ namespace Kulcskockas_aminacio
             xPoints.Add(ms, r.X + 100);
             yPoints.Add(ms, r.Y + 100);
             widthPoints.Add(ms, r.Width);
+            if (ms > time.Max())
+            {
+                timer.Stop();
+                button2.Enabled = true;
+                button3.Enabled = true;
+            }
+            ms++;
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -147,7 +149,14 @@ namespace Kulcskockas_aminacio
                     width.Add(40);
                     width.Add(transWidth);
                     time.Add(0);
-                    time.Add(40);
+                    if (radioButton1.Checked)
+                    {
+                        time.Add(20);
+                    }
+                    else
+                    {
+                        time.Add(40);
+                    }
                     v2 = Interpolation(width, time, 0).ToList();
                     result.Clear();
                     height.Add(40);

@@ -45,7 +45,7 @@
             this.txtCoord.Name = "txtCoord";
             this.txtCoord.Size = new System.Drawing.Size(98, 20);
             this.txtCoord.TabIndex = 0;
-            this.txtCoord.Text = "(X,Y)";
+            this.txtCoord.Text = "X Y";
             this.txtCoord.Click += new System.EventHandler(this.txtCoord_Click);
             this.txtCoord.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtCoord_KeyDown);
             // 
@@ -96,7 +96,6 @@
             this.zedGraphControl1.Size = new System.Drawing.Size(413, 336);
             this.zedGraphControl1.TabIndex = 4;
             this.zedGraphControl1.ZoomButtons = System.Windows.Forms.MouseButtons.None;
-          //  this.zedGraphControl1.Load += new System.EventHandler(this.zedGraphControl1_Load);
             // 
             // frmInterpolation
             // 

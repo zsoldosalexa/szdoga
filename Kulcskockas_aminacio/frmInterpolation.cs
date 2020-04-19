@@ -49,7 +49,15 @@ namespace Kulcskockas_aminacio
         private void btnSave_Click(object sender, EventArgs e)
         {
             List<double> v1 = new List<double>();
-            v1 = Interpolation(xCords, yCords, 0);
+            if (xCords.Count > 1  && yCords.Count > 1)
+            {
+                v1 = Interpolation(xCords, yCords, 0);
+            }
+            else
+            {
+                MessageBox.Show("Előbb adjon meg legalább 2 pontot!");
+                return;
+            }
             PointPairList _pointPairList = new PointPairList();
             for (int i = (int)Math.Floor(xCords.Min()); i <= xCords.Max(); i++)
             {
@@ -63,7 +71,7 @@ namespace Kulcskockas_aminacio
             }
             if (this.Controls.Contains(zedGraphControl1))
             {
-                this.Controls.Remove(zedGraphControl1);
+                this.Controls.Remove(zedGraphControl1); 
             }
             zedGraphControl = new ZedGraph.ZedGraphControl();
             this.Controls.Add(zedGraphControl);
