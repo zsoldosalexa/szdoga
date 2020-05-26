@@ -50,9 +50,9 @@ namespace Kulcskockas_aminacio
 
         private void timer_Tick(object sender, EventArgs e)
         {
-          //  if (ms == time.Max())
+            if (ms == time.Max())
             {
-           //     timer.Stop();
+                timer.Stop();
             }
             ms++;
             pictureBox1.Height = h - (int)calc(ms, v3, time);
@@ -99,7 +99,7 @@ namespace Kulcskockas_aminacio
             timer.Interval = 100;
         }
 
-        private void button2_Click(object sender, EventArgs e)
+        private void btnOpen_Click(object sender, EventArgs e)
         {
             try
             {
@@ -133,9 +133,9 @@ namespace Kulcskockas_aminacio
 
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private void btnStart_Click(object sender, EventArgs e)
         {
-            start_time = DateTime.Now.Second;
+            //start_time = DateTime.Now.Second;
             time.Add(0);
             time.Add(40);
             timer.Start();

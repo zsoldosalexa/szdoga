@@ -71,11 +71,11 @@
     <Compile Include="frmParamChanged.Designer.cs">
       <DependentUpon>frmParamChanged.cs</DependentUpon>
     </Compile>
-    <Compile Include="frmProba.cs">
+    <Compile Include="frmKulcskockasAnimacio.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="frmProba.Designer.cs">
-      <DependentUpon>frmProba.cs</DependentUpon>
+    <Compile Include="frmKulcskockasAnimacio.Designer.cs">
+      <DependentUpon>frmKulcskockasAnimacio.cs</DependentUpon>
     </Compile>
     <Compile Include="frmImageMove.cs">
       <SubType>Form</SubType>
@@ -94,8 +94,8 @@
     <EmbeddedResource Include="frmParamChanged.resx">
       <DependentUpon>frmParamChanged.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="frmProba.resx">
-      <DependentUpon>frmProba.cs</DependentUpon>
+    <EmbeddedResource Include="frmKulcskockasAnimacio.resx">
+      <DependentUpon>frmKulcskockasAnimacio.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="frmImageMove.resx">
       <DependentUpon>frmImageMove.cs</DependentUpon>

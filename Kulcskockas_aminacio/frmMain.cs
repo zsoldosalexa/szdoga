@@ -23,16 +23,11 @@ namespace Kulcskockas_aminacio
             frm.Show();
         }
 
-        private void proba3ToolStripMenuItem_Click(object sender, EventArgs e)
+        private void kulcskockasAnimacioToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            frmProba frm = new frmProba();
+            frmKulcskockasAnimacio frm = new frmKulcskockasAnimacio();
             frm.Show();
         }
 
-        private void képmozgásToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-       /*     frmImageMove frm = new frmImageMove();
-            frm.Show();*/
-        }
     }
 }

@@ -1,6 +1,6 @@
 ﻿namespace Kulcskockas_aminacio
 {
-    partial class frmProba
+    partial class frmKulcskockasAnimacio
     {
         /// <summary>
         /// Required designer variable.
@@ -28,8 +28,8 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmProba));
-            this.button1 = new System.Windows.Forms.Button();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmKulcskockasAnimacio));
+            this.btnStart = new System.Windows.Forms.Button();
             this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
             this.txtAngle = new System.Windows.Forms.TextBox();
             this.txtHeight = new System.Windows.Forms.TextBox();
@@ -42,25 +42,30 @@
             this.label5 = new System.Windows.Forms.Label();
             this.txtWidth = new System.Windows.Forms.TextBox();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
-            this.button2 = new System.Windows.Forms.Button();
-            this.button3 = new System.Windows.Forms.Button();
+            this.btnImageMove = new System.Windows.Forms.Button();
+            this.btnParameters = new System.Windows.Forms.Button();
             this.radioButton1 = new System.Windows.Forms.RadioButton();
             this.radioButton2 = new System.Windows.Forms.RadioButton();
+            this.btnRestart = new System.Windows.Forms.Button();
+            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.rbSpline = new System.Windows.Forms.RadioButton();
+            this.rbNewton = new System.Windows.Forms.RadioButton();
+            this.btnAdd = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
+            this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
-            // button1
+            // btnStart
             // 
-            this.button1.BackColor = System.Drawing.Color.Transparent;
-            this.button1.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.button1.Image = ((System.Drawing.Image)(resources.GetObject("button1.Image")));
-            this.button1.Location = new System.Drawing.Point(187, 42);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(40, 40);
-            this.button1.TabIndex = 2;
-            this.button1.Text = "Start";
-            this.button1.UseVisualStyleBackColor = false;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
+            this.btnStart.BackColor = System.Drawing.Color.Transparent;
+            this.btnStart.DialogResult = System.Windows.Forms.DialogResult.Cancel;
+            this.btnStart.Location = new System.Drawing.Point(190, 95);
+            this.btnStart.Name = "btnStart";
+            this.btnStart.Size = new System.Drawing.Size(59, 29);
+            this.btnStart.TabIndex = 2;
+            this.btnStart.Text = "Indítás";
+            this.btnStart.UseVisualStyleBackColor = false;
+            this.btnStart.Click += new System.EventHandler(this.btnStart_Click);
             // 
             // txtAngle
             // 
@@ -166,61 +171,117 @@
             this.dataGridView1.MouseMove += new System.Windows.Forms.MouseEventHandler(this.dataGridView1_MouseMove);
             this.dataGridView1.MouseUp += new System.Windows.Forms.MouseEventHandler(this.dataGridView1_MouseUp);
             // 
-            // button2
+            // btnImageMove
             // 
-            this.button2.Enabled = false;
-            this.button2.Location = new System.Drawing.Point(16, 173);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(142, 23);
-            this.button2.TabIndex = 17;
-            this.button2.Text = "Ábrázolás képpel";
-            this.button2.UseVisualStyleBackColor = true;
-            this.button2.Click += new System.EventHandler(this.button2_Click);
+            this.btnImageMove.Enabled = false;
+            this.btnImageMove.Location = new System.Drawing.Point(28, 162);
+            this.btnImageMove.Name = "btnImageMove";
+            this.btnImageMove.Size = new System.Drawing.Size(142, 23);
+            this.btnImageMove.TabIndex = 17;
+            this.btnImageMove.Text = "Ábrázolás képpel";
+            this.btnImageMove.UseVisualStyleBackColor = true;
+            this.btnImageMove.Click += new System.EventHandler(this.btnImageMove_Click);
             // 
-            // button3
+            // btnParameters
             // 
-            this.button3.Enabled = false;
-            this.button3.Location = new System.Drawing.Point(16, 214);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(171, 45);
-            this.button3.TabIndex = 18;
-            this.button3.Text = "A paraméterek értékeinek változása függvénnyel ábrázolva";
-            this.button3.UseVisualStyleBackColor = true;
-            this.button3.Click += new System.EventHandler(this.button3_Click);
+            this.btnParameters.Enabled = false;
+            this.btnParameters.Location = new System.Drawing.Point(16, 202);
+            this.btnParameters.Name = "btnParameters";
+            this.btnParameters.Size = new System.Drawing.Size(171, 45);
+            this.btnParameters.TabIndex = 18;
+            this.btnParameters.Text = "A paraméterek értékeinek változása függvénnyel ábrázolva";
+            this.btnParameters.UseVisualStyleBackColor = true;
+            this.btnParameters.Click += new System.EventHandler(this.btnParameters_Click);
             // 
             // radioButton1
             // 
             this.radioButton1.AutoSize = true;
-            this.radioButton1.Location = new System.Drawing.Point(89, 305);
+            this.radioButton1.Location = new System.Drawing.Point(116, 352);
             this.radioButton1.Name = "radioButton1";
             this.radioButton1.Size = new System.Drawing.Size(54, 17);
             this.radioButton1.TabIndex = 19;
-            this.radioButton1.Text = "40 mp";
+            this.radioButton1.Text = "20 mp";
             this.radioButton1.UseVisualStyleBackColor = true;
             // 
             // radioButton2
             // 
             this.radioButton2.AutoSize = true;
             this.radioButton2.Checked = true;
-            this.radioButton2.Location = new System.Drawing.Point(16, 305);
+            this.radioButton2.Location = new System.Drawing.Point(28, 352);
             this.radioButton2.Name = "radioButton2";
             this.radioButton2.Size = new System.Drawing.Size(54, 17);
             this.radioButton2.TabIndex = 20;
             this.radioButton2.TabStop = true;
-            this.radioButton2.Text = "20 mp";
+            this.radioButton2.Text = "10 mp";
             this.radioButton2.UseVisualStyleBackColor = true;
             // 
-            // frmProba
+            // btnRestart
+            // 
+            this.btnRestart.Location = new System.Drawing.Point(43, 384);
+            this.btnRestart.Name = "btnRestart";
+            this.btnRestart.Size = new System.Drawing.Size(92, 23);
+            this.btnRestart.TabIndex = 21;
+            this.btnRestart.Text = "Kezdeti pozíció";
+            this.btnRestart.UseVisualStyleBackColor = true;
+            this.btnRestart.Click += new System.EventHandler(this.btnRestart_Click);
+            // 
+            // groupBox1
+            // 
+            this.groupBox1.Controls.Add(this.rbSpline);
+            this.groupBox1.Controls.Add(this.rbNewton);
+            this.groupBox1.Location = new System.Drawing.Point(16, 265);
+            this.groupBox1.Name = "groupBox1";
+            this.groupBox1.Size = new System.Drawing.Size(171, 65);
+            this.groupBox1.TabIndex = 22;
+            this.groupBox1.TabStop = false;
+            this.groupBox1.Text = "Interpolációs-technika";
+            // 
+            // rbSpline
+            // 
+            this.rbSpline.AutoSize = true;
+            this.rbSpline.Location = new System.Drawing.Point(12, 42);
+            this.rbSpline.Name = "rbSpline";
+            this.rbSpline.Size = new System.Drawing.Size(91, 17);
+            this.rbSpline.TabIndex = 1;
+            this.rbSpline.Text = "Lineáris spline";
+            this.rbSpline.UseVisualStyleBackColor = true;
+            // 
+            // rbNewton
+            // 
+            this.rbNewton.AutoSize = true;
+            this.rbNewton.Checked = true;
+            this.rbNewton.Location = new System.Drawing.Point(12, 20);
+            this.rbNewton.Name = "rbNewton";
+            this.rbNewton.Size = new System.Drawing.Size(70, 17);
+            this.rbNewton.TabIndex = 0;
+            this.rbNewton.TabStop = true;
+            this.rbNewton.Text = "Lagrange";
+            this.rbNewton.UseVisualStyleBackColor = true;
+            // 
+            // btnAdd
+            // 
+            this.btnAdd.Location = new System.Drawing.Point(190, 30);
+            this.btnAdd.Name = "btnAdd";
+            this.btnAdd.Size = new System.Drawing.Size(59, 27);
+            this.btnAdd.TabIndex = 23;
+            this.btnAdd.Text = "Hozzáad";
+            this.btnAdd.UseVisualStyleBackColor = true;
+            this.btnAdd.Click += new System.EventHandler(this.btnAdd_Click);
+            // 
+            // frmKulcskockasAnimacio
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackgroundImage = global::Kulcskockas_aminacio.Properties.Resources.optimised_image_5;
-            this.CancelButton = this.button1;
+            this.CancelButton = this.btnStart;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.btnAdd);
+            this.Controls.Add(this.groupBox1);
+            this.Controls.Add(this.btnRestart);
             this.Controls.Add(this.radioButton2);
             this.Controls.Add(this.radioButton1);
-            this.Controls.Add(this.button3);
-            this.Controls.Add(this.button2);
+            this.Controls.Add(this.btnParameters);
+            this.Controls.Add(this.btnImageMove);
             this.Controls.Add(this.dataGridView1);
             this.Controls.Add(this.txtWidth);
             this.Controls.Add(this.label5);
@@ -232,21 +293,25 @@
             this.Controls.Add(this.txtXCord);
             this.Controls.Add(this.txtHeight);
             this.Controls.Add(this.txtAngle);
-            this.Controls.Add(this.button1);
+            this.Controls.Add(this.btnStart);
             this.DoubleBuffered = true;
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.Name = "frmProba";
-            this.Text = "frmProba";
-            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.frmProba_FormClosing);
-            this.Load += new System.EventHandler(this.frmProba_Load);
+            this.MaximizeBox = false;
+            this.Name = "frmKulcskockasAnimacio";
+            this.Text = "Kulcskockás Animáció";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.frmKulcskockasAnimacio_FormClosing);
+            this.Load += new System.EventHandler(this.frmKulcskockasAnimacio_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
+            this.groupBox1.ResumeLayout(false);
+            this.groupBox1.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
         }
 
         #endregion
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button btnStart;
         private System.ComponentModel.BackgroundWorker backgroundWorker1;
         private System.Windows.Forms.TextBox txtAngle;
         private System.Windows.Forms.TextBox txtHeight;
@@ -259,9 +324,14 @@
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.TextBox txtWidth;
         private System.Windows.Forms.DataGridView dataGridView1;
-        private System.Windows.Forms.Button button2;
-        private System.Windows.Forms.Button button3;
+        private System.Windows.Forms.Button btnImageMove;
+        private System.Windows.Forms.Button btnParameters;
         private System.Windows.Forms.RadioButton radioButton1;
         private System.Windows.Forms.RadioButton radioButton2;
+        private System.Windows.Forms.Button btnRestart;
+        private System.Windows.Forms.GroupBox groupBox1;
+        private System.Windows.Forms.RadioButton rbSpline;
+        private System.Windows.Forms.RadioButton rbNewton;
+        private System.Windows.Forms.Button btnAdd;
     }
 }
